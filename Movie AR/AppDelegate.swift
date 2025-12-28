@@ -1,38 +1,108 @@
+//
+//  AppDelegate.swift
+//  Movie AR
+//
+//  Refactored: December 2025
+//  Modernized for iOS 14+ with proper lifecycle management
+//
+
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+@main
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    // MARK: - Application Lifecycle
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+
+        // Configure app appearance
+        configureAppearance()
+
+        // Setup any third-party services here
+        // setupAnalytics()
+        // setupCrashReporting()
+        // setupRevenueCat()
+
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        // Pause ongoing tasks, disable timers
+        // Called when app is about to move from active to inactive
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        // Release shared resources, save user data
+        // Store app state for restoration
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        // Undo changes made on entering background
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // Restart paused tasks, refresh UI if needed
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // Save data if appropriate
     }
 
+    // MARK: - Configuration
 
+    private func configureAppearance() {
+        // Configure navigation bar appearance
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.backgroundColor = .systemBackground
+        navigationBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.label
+        ]
+        navigationBarAppearance.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.label
+        ]
+
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+
+        // Configure tab bar appearance if needed
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = .systemBackground
+
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        if #available(iOS 15.0, *) {
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
+    }
+
+    // MARK: - Third-Party Service Setup (Stubs)
+
+    /// Setup analytics (Firebase, Amplitude, Mixpanel, etc.)
+    private func setupAnalytics() {
+        // Example:
+        // Analytics.shared.configure()
+    }
+
+    /// Setup crash reporting (Sentry, Crashlytics, etc.)
+    private func setupCrashReporting() {
+        // Example:
+        // SentrySDK.start { options in
+        //     options.dsn = "your-dsn"
+        //     options.enableAutoSessionTracking = true
+        // }
+    }
+
+    /// Setup RevenueCat for in-app purchases
+    private func setupRevenueCat() {
+        // Example:
+        // Purchases.logLevel = .debug
+        // Purchases.configure(withAPIKey: "your-api-key")
+    }
 }
-
